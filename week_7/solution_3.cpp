@@ -1,44 +1,97 @@
-#include <cmath>
-#include <cstdio>
-#include <vector>
-#include <iostream>
-#include <algorithm>
+#include <bits/stdc++.h>
+
 using namespace std;
 
+string ltrim(const string &);
+string rtrim(const string &);
 
-class Student{
-   private:
-      int scores[5];
-      int totalScore;
-   public:
-      void input(){
-          for(int i=0;i<5;i++){
-              cin>>scores[i];
-          }
-      }
-      int calculateTotalScore(){
-          int sum = 0;
-          for(int j=0;j<5;j++){
-              sum+=scores[j];
-          }
-          totalScore=sum;
-          return sum;
-      } 
-      int getTotalScore(){return totalScore;}
-};
-int main() {
-    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
-    int n;
-    cin>>n;
-    Student list[n];
-    for (int i =0; i<n; i++) {
-        list[i].input();
-        list[i].calculateTotalScore();
+/*
+ * Complete the 'powerSum' function below.
+ *
+ * The function is expected to return an INTEGER.
+ * The function accepts following parameters:
+ *  1. INTEGER X
+ *  2. INTEGER N
+ */
+
+int power_(int x, int n)
+{
+    int res = 1;
+    for (int i = 1; i <= n; i++)
+    {
+        res *= x;
     }
-    int count =0;
-    for (int i = 1; i<n; i++) {
-        if(list[i].getTotalScore()>list[0].getTotalScore()) count++;
+    return res;
+}
+void findPower(int x, int n, int cur, int acc, int &count)
+{
+    static int lim = pow(x, 1/static_cast<float>(n));
+    cout<<acc<<" "<<cur<<endl;
+    if (x == acc)
+    {
+        count++;
+        return;
     }
-    cout<<count;
+    else
+    {
+        for (int i = cur; i <= lim; i++)
+        {
+            /* code */
+            int curNum = power_(i, n);
+            acc += curNum;
+            if(acc>x) break;
+            findPower(x, n, i+1, acc, count);
+            acc-=curNum;
+        }
+    }
+}
+int powerSum(int X, int N)
+{
+    int count = 0;
+    findPower(X, N, 1, 0, count);
+    return count;
+}
+int main()
+{
+    ofstream fout(getenv("OUTPUT_PATH"));
+
+    string X_temp;
+    getline(cin, X_temp);
+
+    int X = stoi(ltrim(rtrim(X_temp)));
+
+    string N_temp;
+    getline(cin, N_temp);
+
+    int N = stoi(ltrim(rtrim(N_temp)));
+
+    int result = powerSum(X, N);
+
+    fout << result << "\n";
+
+    fout.close();
+
     return 0;
+}
+
+string ltrim(const string &str) {
+    string s(str);
+
+    s.erase(
+        s.begin(),
+        find_if(s.begin(), s.end(), not1(ptr_fun<int, int>(isspace)))
+    );
+
+    return s;
+}
+
+string rtrim(const string &str) {
+    string s(str);
+
+    s.erase(
+        find_if(s.rbegin(), s.rend(), not1(ptr_fun<int, int>(isspace))).base(),
+        s.end()
+    );
+
+    return s;
 }
