@@ -84,12 +84,12 @@ SinglyLinkedListNode *insertNodeAtTail(SinglyLinkedListNode *head, int data)
     //------loop_end--------
 
     //********recursion*******
-    static SinglyLinkedListNode **last = &head;
+    static SinglyLinkedListNode **headRef = &head;
     if (head->next == NULL)
     {
         SinglyLinkedListNode *newNode = new SinglyLinkedListNode(data);
         head->next = newNode;
-        return *last;
+        return *headRef;
     }
     else
     {
