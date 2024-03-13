@@ -76,12 +76,14 @@ void printLinkedList(SinglyLinkedListNode *head)
         head = head->next;
     }
 
+
     //-----for loop-----
     // for (SinglyLinkedListNode* it= head; it != NULL; it=it->next)
     // {
     //     cout << it->data << endl;
     // }
     
+
     // *****recursion*****
     // if (head == NULL)
     // {

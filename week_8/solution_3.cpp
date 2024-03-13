@@ -55,7 +55,6 @@ void free_singly_linked_list(SinglyLinkedListNode *node)
 }
 
 // Complete the insertNodeAtHead function below.
-
 /*
  * For your reference:
  *
